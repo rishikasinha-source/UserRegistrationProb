@@ -2,38 +2,37 @@ import java.util.regex.Pattern;
 
 public class UserRegistration{
 
-	public boolean validateFirstName(String name)
-	{
+	public boolean validateFirstName(String name) throws UserRegistrationProbException {
 		String expression= "^[A-Z][a-z]{2,}$";
 		if(name.matches(expression))
 			return true;
 		else
-		return false;
+			throw new UserRegistrationProbException(UserRegistrationProbException.ExceptionType.INVALID, "Invalid First Name");
 		
 	}
 	
-	public boolean validateEmailAddress(String email)
+	public boolean validateEmailAddress(String email) throws UserRegistrationProbException
 	{
 		String expression="^[0-9a-zA-Z]+([._+-][0-9a-zA-Z])*@[0-9a-zA-Z]+.[a-zA-Z]{2,4}(.[a-zA-Z]{2})*$";
 		Pattern pattern=Pattern.compile(expression);
 		return pattern.matcher(email).matches();
-		
 	}
 	
-	public boolean validateMobileFormat(String mobileFormat) {
+	public boolean validateMobileFormat(String mobileFormat) throws UserRegistrationProbException {
 		String expression="^([\\\\+]?91)[6-9]{1}[0-9]{9}$";
 		if(mobileFormat.matches(expression))
 			return true;
 		else
-		return false;	
+		throw new UserRegistrationProbException(UserRegistrationProbException.ExceptionType.INVALID,
+				"Invalid Mobile Number");	
 }
 	
-	public boolean validatePassword(String password) {
+	public boolean validatePassword(String password) throws UserRegistrationProbException {
 		String expression="^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$";
 		if(password.matches(expression))
 			return true;
 		else
-		return false;	
+			throw new UserRegistrationProbException(UserRegistrationProbException.ExceptionType.INVALID, "Invalid Password");
 }
 
 	public boolean validateEmailAddress(String string, String string2, String string3, String string4, String string5,
@@ -43,6 +42,34 @@ public class UserRegistration{
 		// TODO Auto-generated method stub
 		return false;
 	}
+public static void main(String args[]) {
 
+	UserRegistration user = new UserRegistration();
+	System.out.println("Welcome to User Registration System ");
+	user.validateFirstName();
+	user.validateEmailAddress();
+	user.validateMobileFormat();
+	user.validatePassword();
+}
+
+private void validatePassword() {
+	// TODO Auto-generated method stub
+	
+}
+
+private void validateMobileFormat() {
+	// TODO Auto-generated method stub
+	
+}
+
+private void validateEmailAddress() {
+	// TODO Auto-generated method stub
+	
+}
+
+private void validateFirstName() {
+	// TODO Auto-generated method stub
+	
+}
 
 }
