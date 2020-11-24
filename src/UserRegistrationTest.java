@@ -25,13 +25,15 @@ public class UserRegistrationTest {
 		boolean result=userValidator.validateFirstName("Ri$hika");
 		Assert.assertEquals(false, result);
 	}
+	
 @Test
 	
 	public void validateEmailAddress_WhenValid_ShouldReturnTrue() {
 	 UserRegistration userValidator=new UserRegistration();
-		boolean result=userValidator.validateEmailAddress("Rishika@gmail.com");
-		Assert.assertEquals(true, result);
+		boolean result=userValidator.validateEmailAddress("");
+		Assert.assertEquals(false, result);
 	}
+
 @Test
 
 public void validateMobileFormat_WhenValid_ShouldReturnTrue() {

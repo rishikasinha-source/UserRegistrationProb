@@ -1,6 +1,6 @@
 import java.util.regex.Pattern;
 
-public class UserRegistration {
+public class UserRegistration{
 
 	public boolean validateFirstName(String name)
 	{
@@ -35,6 +35,14 @@ public class UserRegistration {
 		else
 		return false;	
 }
+
+	public boolean validateEmailAddress(String string, String string2, String string3, String string4, String string5,
+			String string6, String string7, String string8, String string9, String string10, String string11,
+			String string12, String string13, String string14, String string15, String string16, String string17,
+			String string18, String string19) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 
 }
