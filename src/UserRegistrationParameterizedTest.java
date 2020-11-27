@@ -41,12 +41,7 @@ public class UserRegistrationParameterizedTest {
 
 		@Test
 		public void testUserRegistrationTest() {
-			try {
-				assertEquals(expectedResult, userRegistration.validateEmailAddress(email));
-			} catch (UserRegistrationProbException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			assertEquals(expectedResult, userRegistration.validateEmailAddress.validate(email));
 		}
 }
 

@@ -1,39 +1,68 @@
+import java.util.Scanner;
 import java.util.regex.Pattern;
+
+@FunctionalInterface
+interface IValidateFunction {
+	boolean validate(String n);
+}
 
 public class UserRegistration{
 
-	public boolean validateFirstName(String name) throws UserRegistrationProbException {
+	IValidateFunction validateFirstName = n -> {
 		String expression= "^[A-Z][a-z]{2,}$";
-		if(name.matches(expression))
+		Pattern pattern=Pattern.compile(expression);
+		boolean result=pattern.matcher(n).matches();
+		if(n.matches(expression))
 			return true;
 		else
-			throw new UserRegistrationProbException(UserRegistrationProbException.ExceptionType.INVALID, "Invalid First Name");
+			try {
+				throw new UserRegistrationProbException(UserRegistrationProbException.ExceptionType.INVALID,"Invalid First Name");
+			} catch (UserRegistrationProbException e) {
+				e.printStackTrace();
+			}
+		return result;
 		
-	}
+	};
+
 	
-	public boolean validateEmailAddress(String email) throws UserRegistrationProbException
-	{
+	IValidateFunction validateEmailAddress= n -> {
 		String expression="^[0-9a-zA-Z]+([._+-][0-9a-zA-Z])*@[0-9a-zA-Z]+.[a-zA-Z]{2,4}(.[a-zA-Z]{2})*$";
 		Pattern pattern=Pattern.compile(expression);
-		return pattern.matcher(email).matches();
-	}
+		boolean result= pattern.matcher(n).matches();
+		return result;
+	};
 	
-	public boolean validateMobileFormat(String mobileFormat) throws UserRegistrationProbException {
+	
+	IValidateFunction validateMobileFormat= n-> {
 		String expression="^([\\\\+]?91)[6-9]{1}[0-9]{9}$";
-		if(mobileFormat.matches(expression))
-			return true;
+		Pattern pattern=Pattern.compile(expression);
+		boolean result= pattern.matcher(n).matches();
+			if(result)
+				return result;
 		else
+			try {
 		throw new UserRegistrationProbException(UserRegistrationProbException.ExceptionType.INVALID,
 				"Invalid Mobile Number");	
-}
+			} catch(UserRegistrationProbException e) {
+				e.printStackTrace();
+			}
+			return result;
+};
 	
-	public boolean validatePassword(String password) throws UserRegistrationProbException {
+	IValidateFunction validatePassword= n-> {
 		String expression="^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$";
-		if(password.matches(expression))
-			return true;
+		Pattern pattern=Pattern.compile(expression);
+		boolean result= pattern.matcher(n).matches();
+		if(result)
+			return result;
 		else
+			try {
 			throw new UserRegistrationProbException(UserRegistrationProbException.ExceptionType.INVALID, "Invalid Password");
+} catch(UserRegistrationProbException e) {
+	e.printStackTrace();
 }
+		return result;
+	};
 
 	public boolean validateEmailAddress(String string, String string2, String string3, String string4, String string5,
 			String string6, String string7, String string8, String string9, String string10, String string11,
@@ -42,14 +71,23 @@ public class UserRegistration{
 		// TODO Auto-generated method stub
 		return false;
 	}
-public static void main(String args[]) {
+public static void main(String args[]) throws UserRegistrationProbException {
 
 	UserRegistration user = new UserRegistration();
+	Scanner scan = new Scanner(System.in);
 	System.out.println("Welcome to User Registration System ");
-	user.validateFirstName();
-	user.validateEmailAddress();
-	user.validateMobileFormat();
-	user.validatePassword();
+	System.out.println("Enter the First Name");
+	String firstName=scan.nextLine();
+	user.validateFirstName.validate(firstName);
+	System.out.println("Enter the email address");
+	String emailAddress=scan.nextLine();
+	user.validateEmailAddress.validate(emailAddress);
+	System.out.println("Enter the mobile number format");
+	String mobileFormat=scan.nextLine();
+	user.validateMobileFormat.validate(mobileFormat);
+	System.out.println("Enter the password format");
+	String password=scan.nextLine();
+	user.validatePassword.validate(password);
 }
 
 private void validatePassword() {
